@@ -1,0 +1,9 @@
+De esta manera se puede corregir el .gitignore cuando no reconoces las reglas
+
+- git rm -r --cached .
+
+Para crear el archivo de dependencia requeriments.txt
+
+- python -m pip freeze [options]
+- python -m pip freeze > requeriments.txt
+
