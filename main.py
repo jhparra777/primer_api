@@ -27,12 +27,12 @@ Base.metadata.create_all(bind=engine)
 
 
 @app.get("/", tags=["Inicio"])
-def read_root():
-    return {"Hello": "World"}
+def read_root():  
+    return HTMLResponse("<h1>API de Hugging Face</h1><p>Esta es una API para procesar información con un modelo de IA.</p>")
 
 @app.get("/start", tags=["Start"])
 def read2_root():
-    return HTMLResponse('<h1>Hola, mundo!</h1>')
+    return {"Hello": "World"}
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 8000))
