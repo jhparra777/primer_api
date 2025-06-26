@@ -1,0 +1,33 @@
+from fastapi import FastAPI, Body, Path, Query, Request, HTTPException, Depends
+from fastapi.responses import HTMLResponse, JSONResponse
+from pydantic import BaseModel, Field
+from typing import List, Optional
+# from fastapi.security import HTTPBearer
+from user_jwt import crearTokenJWT, validateTokenJWT
+from db.database import Session, engine, Base
+from models.movie import Movie as ModelMovie  
+# from fastapi.encoders import jsonable_encoder  
+from routers.movie import routerMovie
+from routers.user import routerLogin
+ 
+
+app = FastAPI(
+    title = "API del agente Hugging Face",
+    description= "La siguiente API procseará información con un modelo de IA",
+    version = "0.0.1"
+)
+
+app.include_router(routerMovie, tags=["Movies"])
+app.include_router(routerLogin, tags=["Users"])
+
+Base.metadata.create_all(bind=engine)
+
+
+@app.get("/", tags=["Inicio"])
+def read_root():
+    return {"Hello": "World"}
+
+@app.get("/start", tags=["Start"])
+def read2_root():
+    return HTMLResponse('<h1>Hola, mundo!</h1>')
+
